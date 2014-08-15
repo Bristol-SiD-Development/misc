@@ -1,0 +1,48 @@
+#~/.bashrc
+alias emacs='emacs -nw'
+alias ls='ls --color=auto'
+
+#--------------
+# Entering a directory name as a bare word will change into that directory
+shopt -s autocd
+# Automatically correct off-by-one typing mistakes when changing directories
+shopt -s cdspell
+# Make Bash wrap text properly if the terminal size changes
+shopt -s checkwinsize
+# Store multi-line commands in shell history as one-liners for easy editing
+shopt -s cmdhist
+# Correct off-by-one typing mistakes when tab-completing directories
+shopt -s dirspell
+# Allow aliases to be expanded even in non-interactive sessions
+shopt -s expand_aliases
+
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+
+#-------------------------------------------------------------
+# Environment variables to enable the lcsoft pyroot interpreter
+#-------------------------------------------------------------
+export ILCSOFT_PATH=/afs/desy.de/project/ilcsoft/sw/x86_64_gcc44_sl6/v01-17-05
+export ROOTSYS=$ILCSOFT_PATH/root/5.34.10
+export PYTHONDIR=/usr/lib/python2.6/site-packages
+export LD_LIBRARY_PATH=$ROOTSYS/lib:$PYTHONDIR/lib:$LD_LIBRARY_PATH
+export PYTHONPATH=$ROOTSYS/lib:$PYTHONPATH
+
+#-----------------------------------------------------
+# Environment variables to enable the pylcio module(s)
+#-----------------------------------------------------
+export LCIO=$ILCSOFT_PATH/lcio/v02-04-03
+export PYTHONPATH=$LCIO/src/python:$PYTHONPATH
+
+#------------------------------
+#Want GeomConverter
+#------------------------------
+alias GeomConverter="java -jar /afs/cern.ch/eng/clic/software/GeomConverter/HEAD/target/GeomConverter-2.6-SNAPSHOT-bin.jar"
+
+alias Gs="GeomConverter -o lcdd compact.xml geom_slic.lcdd"
+alias Gp="GeomConverter -o pandora compact.xml geom_pandora.xml"

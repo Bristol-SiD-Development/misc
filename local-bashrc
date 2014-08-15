@@ -1,0 +1,47 @@
+#~/.bashrc
+
+alias emacs='emacs -nw'
+alias ls='ls --color=auto'
+
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+
+
+
+#----------------------
+# I access lxplus a lot!
+#---------------------
+#Typing lxplus with no options is  equivalent to typing:
+# ssh -XY oreardon@lxplus.cern.ch
+# Typing lxplus get followed by a path will use rsync to get the file or directory of that path and put it in your CWD
+# you should change the username to yours!
+lxplus(){
+    if [[ $1 == "get" ]]; then
+	#echo $1
+	rsync -avz "oreardon@lxplus.cern.ch:"$2 ./
+    else
+	ssh -XY "oreardon@lxplus.cern.ch"
+    fi;
+}
+
+
+#--------------
+#useful options
+#--------------
+# Entering a directory name as a bare word will change into that directory
+shopt -s autocd
+# Automatically correct off-by-one typing mistakes when changing directories
+shopt -s cdspell
+# Make Bash wrap text properly if the terminal size changes
+shopt -s checkwinsize
+# Store multi-line commands in shell history as one-liners for easy editing
+shopt -s cmdhist
+# Correct off-by-one typing mistakes when tab-completing directories
+shopt -s dirspell
+# Allow aliases to be expanded even in non-interactive sessions
+shopt -s expand_aliases
