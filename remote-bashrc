@@ -44,5 +44,17 @@ export PYTHONPATH=$LCIO/src/python:$PYTHONPATH
 #------------------------------
 alias GeomConverter="java -jar /afs/cern.ch/eng/clic/software/GeomConverter/HEAD/target/GeomConverter-2.6-SNAPSHOT-bin.jar"
 
-alias Gs="GeomConverter -o lcdd compact.xml geom_slic.lcdd"
-alias Gp="GeomConverter -o pandora compact.xml geom_pandora.xml"
+#alias Gs="GeomConverter -o lcdd compact.xml geom_slic.lcdd"
+#alias Gp="GeomConverter -o pandora compact.xml geom_pandora.xml"
+
+Gs () {
+    name=$( cat ./compact.xml | grep "<info name=" | sed s/"<info name=\""/""/ | sed s/"\".*"/""/ )
+    $( GeomConverter -o lcdd compact.xml $name.lcdd )
+}
+
+
+Gp () {
+    name=$( cat ./compact.xml | grep "<info name=" | sed s/"<info name=\""/""/ | sed s/"\".*"/""/ )
+    $( GeomConverter -o lcdd compact.xml $name"_pandora.xml" )
+}
+
